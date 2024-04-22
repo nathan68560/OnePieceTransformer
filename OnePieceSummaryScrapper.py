@@ -4,6 +4,31 @@ from bs4 import BeautifulSoup
 # Generate a list of URLs for the first 1100 OP episodes listed on onepiece fandom
 base_url = "https://onepiece.fandom.com/wiki/Episode_{}"
 urls = [base_url.format(i) for i in range(1, 1100)]
+special_characters = {
+    '`': "'",
+    '°C': '',
+    '\xa0': ' ',
+    'ß': 'ss',
+    'à': 'a',
+    'è': 'e',
+    'é': 'e',
+    'ï': 'i',
+    'ö': 'o',
+    'û': 'u',
+    'ō': 'o',
+    'œ': 'oe',
+    'ū': 'u',
+    '–': '-',
+    '—': '-',
+    '―': '-',
+    '‘': "'",
+    '’': "'",
+    '“': '"',
+    '”': '"',
+    '…': '...',
+    ' [ゴゴゴゴ]': '',
+    ' "女難"': ''
+}
 
 # Function to get and extract the desired section from a URL
 def scrape_url(url):
@@ -47,8 +72,12 @@ for url in urls:
     if section:
         concatenated_sections += section + '\n'
 
+# Replace special characters
+for old, new in special_characters.items():
+    concatenated_sections = concatenated_sections.replace(old, new)
+
 # Write the concatenated sections to a file
 with open('OnePieceSummary.txt', 'w', encoding='utf-8') as f:
     f.write(concatenated_sections)
 
-print("Script execution completed.")
+print("Text theft completed.")
