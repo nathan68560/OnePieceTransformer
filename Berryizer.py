@@ -37,7 +37,7 @@ def merge(ids, pair, pairid):
 class Berryizer():
     def __init__(self):
         self.merges = {}
-        self.regpat = r""" ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
+        self.regpat = r"""<\|quickfix\|>| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
         self.compiled_regpat = re.compile(self.regpat)
         self.vocab = self._build_vocab()
 
