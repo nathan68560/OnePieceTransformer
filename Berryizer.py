@@ -101,17 +101,21 @@ class Berryizer():
         # Read the model file
         merges = {}
         idx = 256
-        with open(model_file, 'r', encoding="utf-8") as f:
-            # Read the pattern
-            self.regpat = f.readline().strip()
-            self.compiled_regpat = re.compile(self.regpat)
-            # Read the merges
-            for line in f:
-                idx1, idx2 = map(int, line.split())
-                merges[(idx1, idx2)] = idx
-                idx += 1
-        self.merges = merges
-        self.vocab = self._build_vocab()
+        try:
+            with open(model_file, 'r', encoding="utf-8") as f:
+                # Read the pattern
+                self.regpat = f.readline().strip()
+                self.compiled_regpat = re.compile(self.regpat)
+                # Read the merges
+                for line in f:
+                    idx1, idx2 = map(int, line.split())
+                    merges[(idx1, idx2)] = idx
+                    idx += 1
+            self.merges = merges
+            self.vocab = self._build_vocab()
+            return True
+        except OSError:
+            return False
 
     def train(self, text, vocab_size):
         """
