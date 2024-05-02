@@ -1,0 +1,4 @@
+# OnePieceGPT
+_**OnePieceGPT**_ is a _Generative Pre-trained Transformer (GPT)_ developed in Python and who's purpose is to generate fictional "[One Piece](https://en.wikipedia.org/wiki/One_Piece)" adventures. My personal goal with this project was to learn more about the inner working of transformers, and specifically GPTs and NLP, as well as to gain some more experiences in Python developement.
+
+The code is based on [Andrej Karpathy](https://github.com/karpathy)'s excellent tutorials "[Let's build GPT: from scratch, in code, spelled out.](https://www.youtube.com/watch?v=kCc8FmEb1nY&t=6117s)" and "[Let's build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE&t=4661s)".

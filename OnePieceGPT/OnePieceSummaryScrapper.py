@@ -72,12 +72,12 @@ for url in urls:
     if section:
         concatenated_sections += section + '\n'
 
-# Replace special characters
+# Replace special characters to 'simplify' the text
 for old, new in special_characters.items():
     concatenated_sections = concatenated_sections.replace(old, new)
 
 # Write the concatenated sections to a file
-with open('OnePieceSummary.txt', 'w', encoding='utf-8') as f:
+with open("OnePieceSummary.txt", 'w', encoding='utf-8') as f:
     f.write(concatenated_sections)
 
 print("Text theft completed.")

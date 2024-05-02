@@ -1,23 +1,22 @@
 import regex as re
 
 def get_counts(ids, counts=None):
-    """
-    Get the number of appearence of each consecutive pair of tokens
+    """Get the number of appearence of each consecutive pair of tokens
      
     {
         (tokens[i], tokens[i+1]): n_appearance, ...
     }
     """
-    counts = {} if counts is None else counts
+    
     # Iterate over consecutive pairs of tokens -> and increment the pair's count
+    counts = {} if counts is None else counts
     for pair in zip(ids, ids[1:]):
         counts[pair] = counts.get(pair, 0) + 1
     return counts
 
 def merge(ids, pair, pairid):
-    """
-    Replace every occurence of the given pair in 'ids' by 'pairid'
-    """
+    """Replace every occurence of the given pair in 'ids' by 'pairid'"""
+
     lenids = len(ids)
     newids = []
     i = 0
@@ -42,18 +41,16 @@ class Berryizer():
         self.vocab = self._build_vocab()
 
     def _build_vocab(self):
-        """
-        Create a dictionnary that return the bytes value for each token
-        """
+        """Create a dictionnary that return the bytes value for each token"""
+
         vocab = {token: bytes([token]) for token in range(256)}
         for (p0, p1), pairid in self.merges.items():
             vocab[pairid] = vocab[p0] + vocab[p1]
         return vocab
 
     def _chunkode(self, bytestring):
-        """
-        Encode a chunk of text
-        """
+        """Encode a chunk of text"""
+
         tokens = list(bytestring)
         while len(tokens) >= 2:
             counts = get_counts(tokens)
@@ -93,9 +90,7 @@ class Berryizer():
                     f.write(f"[{s}] {idx}\n")
 
     def load(self, model_file="Berryizer.model"):
-        """
-        Inverse of save() but only for the model file
-        """
+        """Inverse of save() but only for the model file"""
         assert model_file.endswith(".model")
         
         # Read the model file
@@ -118,9 +113,7 @@ class Berryizer():
             return False
 
     def train(self, text, vocab_size):
-        """
-        Train the Berryizer on the given text 'text' to construct a vocabulary of the given size 'vocab_size'
-        """
+        """Train the Berryizer on the given text 'text' to construct a vocabulary of the given size 'vocab_size'"""
         assert vocab_size >= 256
         n_merges = vocab_size - 256
 
@@ -148,9 +141,7 @@ class Berryizer():
         self.vocab = vocab
 
     def encode(self, text):
-        """
-        Encode a text into a list of tokens by first breaking it into chunks (MOTT words)
-        """
+        """Encode a text into a list of tokens by first breaking it into chunks (MOTT words)"""
         chunks = re.findall(self.compiled_regpat, text)
         tokens = []
         for chunk in chunks:
@@ -160,9 +151,7 @@ class Berryizer():
         return tokens
 
     def decode(self, tokens):
-        """
-        Decode a list of tokens back into a text
-        """
+        """Decode a list of tokens back into a text"""
         chunks = []
         for id in tokens:
             if id in self.vocab:
