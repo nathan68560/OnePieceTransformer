@@ -4,7 +4,6 @@ from Berryizer import Berryizer
 from torch.nn import functional as F
 
 # ---- Hyperparams
-"""The current working directory path"""
 batch_size = 32
 """Number of parallel independent batches of data to get when training of evaluating"""
 block_size = 256                                        
